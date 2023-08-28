@@ -1,0 +1,28 @@
+sudo swapoff -a
+sudo apt install docker.io -y
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
+echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo apt update
+sudo apt install kubeadm kubelet kubectl kubernetes-cni -y
+
+
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Alternatively, if you are the root user, you can run:
+
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 10.10.10.2:6443 --token h1hyse.1kkam8i7lxda4yc4 \
+	--discovery-token-ca-cert-hash sha256:e6491f0a33deea5d4a00df51b7b46be89559681b5ae0f8db6e59ad86163ce513 
